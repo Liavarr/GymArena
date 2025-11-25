@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "727656573574",
+    "project_id": "gymarena-6cd85",
+    "storage_bucket": "gymarena-6cd85.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727656573574:android:a5e435e7d3ad83933f3f07",
+        "android_client_info": {
+          "package_name": "com.example.gymarena"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKNdE2-TWKPRbMoPGC8k13fF2bFbPdMuQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
