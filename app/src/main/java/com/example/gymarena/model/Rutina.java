@@ -5,16 +5,18 @@ import java.util.List;
 
 public class Rutina {
     private String idRutina;
+    private String idUsuario;
     private String nombre;
     private String descripcion;
-    private List<Ejercicio> ejercicios;
+    private List<String> ejercicios;
 
     public Rutina() {
         this.ejercicios = new ArrayList<>();
     }
 
-    public Rutina(String idRutina, String nombre, String descripcion) {
+    public Rutina(String idRutina,String idUsuario, String nombre, String descripcion) {
         this.idRutina = idRutina;
+        this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.ejercicios = new ArrayList<>();
@@ -26,6 +28,14 @@ public class Rutina {
 
     public void setIdRutina(String idRutina) {
         this.idRutina = idRutina;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNombre() {
@@ -44,11 +54,11 @@ public class Rutina {
         this.descripcion = descripcion;
     }
 
-    public List<Ejercicio> getEjercicios() {
+    public List<String> getEjercicios() {
         return ejercicios;
     }
 
-    public void setEjercicios(List<Ejercicio> ejercicios) {
+    public void setEjercicios(List<String> ejercicios) {
         this.ejercicios = ejercicios;
     }
 

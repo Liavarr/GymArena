@@ -11,8 +11,7 @@ public class Ejercicio {
 
     }
 
-    public Ejercicio(String idEjercicio, String nombre, String musculoPrincipal, List<String> musculoSecundario) {
-        this.idEjercicio = idEjercicio;
+    public Ejercicio(String nombre, String musculoPrincipal, List<String> musculoSecundario) {
         this.nombre = nombre;
         this.musculoPrincipal = musculoPrincipal;
         this.musculoSecundario = musculoSecundario;

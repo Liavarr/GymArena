@@ -3,6 +3,7 @@ package com.example.gymarena.model;
 import java.util.Date;
 
 public class Estadistica {
+    private String idEstadistica;
     private String idUsuario;
     private String idEjercicio;
     private Date fecha;
@@ -18,6 +19,14 @@ public class Estadistica {
         this.fecha = fecha;
         this.peso = peso;
         this.repeticionesTotales = repeticionesTotales;
+    }
+
+    public String getIdEstadistica() {
+        return idEstadistica;
+    }
+
+    public void setIdEstadistica(String idEstadistica) {
+        this.idEstadistica = idEstadistica;
     }
 
     public String getIdUsuario() {

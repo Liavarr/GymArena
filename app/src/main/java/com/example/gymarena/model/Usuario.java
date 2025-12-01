@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario {
-    private String id;
+    private String idUsuario;
     private String nombre;
     private String email;
     private double peso;
@@ -15,8 +15,7 @@ public class Usuario {
         this.listaAmigos = new ArrayList<>();
     }
 
-    public Usuario(String id, String nombre, String email, double peso, double altura) {
-        this.id = id;
+    public Usuario(String nombre, String email, double peso, double altura) {
         this.nombre = nombre;
         this.email = email;
         this.peso = peso;
@@ -24,12 +23,12 @@ public class Usuario {
         this.listaAmigos = new ArrayList<>();
     }
 
-    public String getId() {
-        return id;
+    public String getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNombre() {
@@ -75,7 +74,7 @@ public class Usuario {
     @Override
     public String toString() {
         return "Usuario{" +
-                "id='" + id + '\'' +
+                "id='" + idUsuario + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", email='" + email + '\'' +
                 ", peso=" + peso +
