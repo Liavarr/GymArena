@@ -58,4 +58,12 @@ dependencies {
 
     // Add the dependencies for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
+
+    // AI
+    // Biblioteca de Firebase AI Logic
+    implementation("com.google.firebase:firebase-ai")
+    // Para usar ListenableFuture (Java)
+    implementation("com.google.guava:guava:31.0.1-android")
+    // (Opcional) Si usas APIs con Reactive Streams:
+    implementation("org.reactivestreams:reactive-streams:1.0.4")
 }

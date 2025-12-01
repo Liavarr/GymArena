@@ -6,14 +6,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.MainActivity">
+    <include
+        android:id="@+id/headerUsuario"
+        layout="@layout/header"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Main page"
+    <LinearLayout
+        android:id="@+id/containerNotificaciones"
+        android:layout_width="290dp"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.165"
+        tools:ignore="MissingConstraints">
+        <TextView
+            android:id="@+id/textoNotificaciones"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Aquí iran las notificaciones futuras"/>
+        <!-- Aquí se añadirán dinámicamente los elementos -->
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/containerRutinas"
+        android:layout_width="290dp"
+        android:layout_height="285dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.449"
+        tools:ignore="MissingConstraints">
+
+        <!-- Aquí se añadirán dinámicamente los elementos -->
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/amigos"
+        android:layout_width="120dp"
+        android:layout_height="91dp"
+        android:background="@drawable/button_square"
+        android:text="GymRats"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.206"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.815" />
+
+    <Button
+        android:id="@+id/cronometro"
+        android:layout_width="120dp"
+        android:layout_height="91dp"
+        android:background="@drawable/button_square"
+        android:text="Cronómetro"
+        android:textSize="13dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.79"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.815" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

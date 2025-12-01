@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GymArena</string>
+    <string name="user_icon">User Icon</string>
 </resources>

@@ -2,12 +2,13 @@ package com.example.gymarena.repository;
 
 import android.util.Log;
 
-import com.example.gymarena.auth.FirebaseConexion;
 import com.example.gymarena.model.Estadistica;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class EstadisticaDAO implements DAOInterface<Estadistica>{
@@ -61,6 +62,27 @@ public class EstadisticaDAO implements DAOInterface<Estadistica>{
                 })
                 .addOnFailureListener(listener::onFailure);
     }
+
+    public void obtenerUltimaEstadisticaPorEjercicio(String idUsuario, String idEjercicio, OnTodosObtenidos<Estadistica> listener) {
+        db.collection("estadisticas")
+                .whereEqualTo("idUsuario", idUsuario)
+                .whereEqualTo("idEjercicio", idEjercicio)
+                .orderBy("fecha", Query.Direction.DESCENDING)
+                .limit(1) // Solo nos interesa la más reciente
+                .get()
+                .addOnSuccessListener(query -> {
+                    if (!query.isEmpty()) {
+                        DocumentSnapshot doc = query.getDocuments().get(0);
+                        Estadistica e = doc.toObject(Estadistica.class);
+                        e.setIdEstadistica(doc.getId());
+                        listener.onSuccess(Collections.singletonList(e)); // devolvemos como lista de 1 elemento
+                    } else {
+                        listener.onSuccess(new ArrayList<>()); // lista vacia si no hay datos
+                    }
+                })
+                .addOnFailureListener(listener::onFailure);
+    }
+
 
     // ACTUALIZAR
     @Override
