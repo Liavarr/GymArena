@@ -56,7 +56,7 @@ public class Chatbot {
                 + "\n\nLista de ejercicios permitidos:\n" + ejerciciosTexto.toString()
                 + "\nInstrucciones: "
                 + "Si el usuario pide crear una rutina, utiliza solo ejercicios de la lista anterior. "
-                + "Devuelve un JSON con los campos: {\"nombre\":..., \"descripcion\":..., \"ejercicios\":[...]}. "
+                + "Devuelve un JSON con los campos: {\"nombre\":..., \"descripcion\":..., \"ejercicios\":[\\\"E001\\\",\\\"E002\\\",...]]}. "
                 + "Si solo pide consejo, responde con texto libre. "
                 + "No agregues información extra fuera del JSON.";
 
@@ -72,31 +72,29 @@ public class Chatbot {
                     if (matcher.find()) {
                         String jsonString = matcher.group();
                         org.json.JSONObject obj = new org.json.JSONObject(jsonString);
+
                         rutina = new Rutina();
                         rutina.setIdUsuario(idUsuario);
                         rutina.setNombre(obj.getString("nombre"));
                         rutina.setDescripcion(obj.getString("descripcion"));
 
                         org.json.JSONArray arr = obj.getJSONArray("ejercicios");
-                        List<String> ejercicios = new ArrayList<>();
+                        List<String> ejerciciosId = new ArrayList<>();
+
                         for (int i = 0; i < arr.length(); i++) {
                             String nombreEjercicio = arr.getString(i);
-                            // Validamos que esté en la lista de objetos Ejercicio
-                            boolean encontrado = false;
                             for (Ejercicio e : ejerciciosReferencia) {
                                 if (e.getNombre().equalsIgnoreCase(nombreEjercicio)) {
-                                    encontrado = true;
+                                    ejerciciosId.add(e.getIdEjercicio());
                                     break;
                                 }
                             }
-                            if (encontrado) {
-                                ejercicios.add(nombreEjercicio);
-                            }
                         }
-                        rutina.setEjercicios(ejercicios);
+
+                        rutina.setEjerciciosId(ejerciciosId);
                     }
 
-                    callback.onSuccess(result, rutina);
+                    callback.onSuccess(result, rutina); // rutina será null si solo es consejo
 
                 } catch (Exception e) {
                     callback.onError(e);

@@ -8,18 +8,27 @@ public class Rutina {
     private String idUsuario;
     private String nombre;
     private String descripcion;
-    private List<String> ejercicios;
+    private List<String> ejerciciosId; // <-- Solo IDs de los ejercicios
 
     public Rutina() {
-        this.ejercicios = new ArrayList<>();
+        this.ejerciciosId = new ArrayList<>();
     }
 
-    public Rutina(String idRutina,String idUsuario, String nombre, String descripcion) {
+    public Rutina(String idRutina, String idUsuario, String nombre, String descripcion) {
         this.idRutina = idRutina;
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.ejercicios = new ArrayList<>();
+        this.ejerciciosId = new ArrayList<>();
+    }
+
+    // Getters y setters
+    public List<String> getEjerciciosId() {
+        return ejerciciosId;
+    }
+
+    public void setEjerciciosId(List<String> ejerciciosId) {
+        this.ejerciciosId = ejerciciosId;
     }
 
     public String getIdRutina() {
@@ -54,21 +63,13 @@ public class Rutina {
         this.descripcion = descripcion;
     }
 
-    public List<String> getEjercicios() {
-        return ejercicios;
-    }
-
-    public void setEjercicios(List<String> ejercicios) {
-        this.ejercicios = ejercicios;
-    }
-
     @Override
     public String toString() {
         return "Rutina{" +
                 "idRutina='" + idRutina + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", Descripcion='" + descripcion + '\'' +
-                ", ejercicios=" + ejercicios +
+                ", ejercicios=" + ejerciciosId +
                 '}';
     }
 }

@@ -22,6 +22,7 @@ import com.example.gymarena.model.Usuario;
 import com.example.gymarena.repository.DAOInterface;
 import com.example.gymarena.repository.EjercicioDAO;
 import com.example.gymarena.repository.EstadisticaDAO;
+import com.example.gymarena.repository.EstadisticaRepository;
 import com.example.gymarena.repository.RutinaDAO;
 import com.example.gymarena.repository.UsuarioDAO;
 import com.example.gymarena.repository.UsuarioRepository;
@@ -35,11 +36,15 @@ import java.util.Date;
 public class MainActivity extends BaseActivity {
     private Usuario usuarioTestAnadirAmigo;
     protected TextView notificaciones;
-
+    protected TextView rutinas;
+    Usuario currentUser;
+    Usuario amigo;
+    Ejercicio ejercicio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         //Logeo basico
         SessionManager session = SessionManager.getInstancia();
         //Obtener conexion a la bbdd
@@ -56,17 +61,24 @@ public class MainActivity extends BaseActivity {
         //testAnadirAmigo(db);
         //testEliminarAmigo(db);
         //testChatRutina(db);
-        testChat(db);
+        //testChat(db);
+        testCompararEstadistica(db);
     }
 
     @Override
     protected void afterLayoutLoaded() {
         notificaciones = findViewById(R.id.textoNotificaciones);
+        rutinas = findViewById(R.id.textoRutinas);
     }
 
     private void testCrearUsuario(FirebaseFirestore db){
         UsuarioDAO usuarioDAO = new UsuarioDAO(db);
-        Usuario usuario1 = new Usuario("DAOTest","email@gmail.com",90.00,1.75);
+        Usuario usuario1 = new Usuario(
+                "Marcos",
+                "marcos@example.com",
+                82.0,        // peso corporal
+                1.75         // altura
+        );
 
         usuario1.getListaAmigos().add("1234");
         usuario1.getListaAmigos().add("4312");
@@ -92,8 +104,8 @@ public class MainActivity extends BaseActivity {
         Ejercicio ejercicio1 = new Ejercicio();
         Ejercicio ejercicio2 = new Ejercicio();
 
-        rutina1.getEjercicios().add("Brazos");
-        rutina1.getEjercicios().add("Piernas");
+        rutina1.getEjerciciosId().add("Brazos");
+        rutina1.getEjerciciosId().add("Piernas");
         rutina1.setIdUsuario("123");
 
 
@@ -111,7 +123,11 @@ public class MainActivity extends BaseActivity {
 
     private void testCrearEjercicio(FirebaseFirestore db){
         EjercicioDAO ejercicioDAO = new EjercicioDAO(db);
-        Ejercicio ejercicio1 = new Ejercicio("Press Banca", "Pecho", new ArrayList<String>());
+        Ejercicio ejercicio1 = new Ejercicio(
+                "Press Banca",              // nombre
+                "Pecho",                    // musculo principal
+                new ArrayList<String>()     // secundarios
+        );
         ejercicio1.getMusculoSecundario().add("Triceps");
         ejercicio1.getMusculoSecundario().add("Hombro");
 
@@ -131,7 +147,12 @@ public class MainActivity extends BaseActivity {
         EstadisticaDAO estadisticaDAO = new EstadisticaDAO(db);
 
         // Crear una estadística de ejemplo
-        Estadistica estadistica = new Estadistica("usuario123", "ejercicio456", new Date(), 80.0, 10
+        Estadistica estadistica = new Estadistica(
+                "U2",          // idUsuario
+                "E001",        // idEjercicio
+                new Date(),
+                70.0,          // peso levantado
+                12             // repeticiones totales
         );
         estadisticaDAO.crear(estadistica, new DAOInterface.OnCreado<Estadistica>() {
             @Override
@@ -182,13 +203,10 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    private void testChat(){
-
-    }
 
     private void testChatRutina(FirebaseFirestore db) {
         // Prompt de prueba
-        String promptUsuario = "Crea una rutina de pecho y espalda para principiante";
+        String promptUsuario = "Crea una rutina de hombro para principiante";
         // Usuario de prueba
         Usuario usuario1 = new Usuario("DAOTest","email@gmail.com",90.00,1.75);
         // RutinaDAO para poder hacer llamadas
@@ -200,7 +218,7 @@ public class MainActivity extends BaseActivity {
                 new Chatbot.ChatbotRutinaCallback() {
                     @Override
                     public void onSuccess(String texto, Rutina rutina) {
-                        runOnUiThread(() -> notificaciones.setText(texto));
+                        runOnUiThread(() -> rutinas.setText(texto));
 
                         if (rutina != null) {
                             rutinaDAO.crear(rutina, new DAOInterface.OnCreado<Rutina>() {
@@ -264,5 +282,72 @@ public class MainActivity extends BaseActivity {
                     }
                 }
         );
+    }
+
+    public void testCompararEstadistica(FirebaseFirestore db) {
+        UsuarioDAO usuarioDAO = new UsuarioDAO(db);
+        EjercicioDAO ejercicioDAO = new EjercicioDAO(db);
+        EstadisticaDAO estadisticaDAO = new EstadisticaDAO(db);
+        EstadisticaRepository estadisticaRepository = new EstadisticaRepository();
+
+        // 1️⃣ Obtener usuario
+        usuarioDAO.obtenerUno("9pGyiuKNI8ONEcjXyGyZ", new DAOInterface.OnObtenido<Usuario>() {
+            @Override
+            public void onSuccess(Usuario user) {
+                currentUser = user;
+
+                // 2️⃣ Obtener amigo
+                usuarioDAO.obtenerUno("w4FyGtwDHpvjG0bxCxqH", new DAOInterface.OnObtenido<Usuario>() {
+                    @Override
+                    public void onSuccess(Usuario user2) {
+                        amigo = user2;
+
+                        // 3️⃣ Obtener ejercicio
+                        ejercicioDAO.obtenerUno("tWWJEIp14jXtmKcol1pL", new DAOInterface.OnObtenido<Ejercicio>() {
+                            @Override
+                            public void onSuccess(Ejercicio ej) {
+                                ejercicio = ej;
+
+                                // 4️⃣ Ahora sí, hacer la comparación
+                                estadisticaRepository.compararEstadistica(
+                                        estadisticaDAO,
+                                        currentUser,
+                                        amigo,
+                                        ejercicio,
+                                        new EstadisticaRepository.ComparacionCallback() {
+                                            @Override
+                                            public void onResultado(String resultado) {
+                                                System.out.println("Hemos llegado a la comparacion:");
+                                                System.out.println(resultado);
+                                            }
+
+                                            @Override
+                                            public void onError(Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                );
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

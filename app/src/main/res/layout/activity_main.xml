@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Aquí iran las notificaciones futuras"/>
-        <!-- Aquí se añadirán dinámicamente los elementos -->
+        <!-- Aquí se añadirán dinámicamente  elementos -->
     </LinearLayout>
 
     <LinearLayout
@@ -47,8 +47,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.449"
         tools:ignore="MissingConstraints">
+        <TextView
+            android:id="@+id/textoRutinas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="9dp"
+            android:text="Aquí iran las notificaciones futuras"/>
 
-        <!-- Aquí se añadirán dinámicamente los elementos -->
+        <!-- Aquí se añadirán dinamicamente elementos -->
     </LinearLayout>
 
     <Button
