@@ -34,7 +34,6 @@ public class UsuarioDAO implements DAOInterface<Usuario> {
                     if (doc.exists()) {
                         Usuario usuario = doc.toObject(Usuario.class);
                         usuario.setIdUsuario(doc.getId());
-
                         listener.onSuccess(usuario);
                     } else {
                         listener.onFailure(new Exception("Usuario no encontrado"));

@@ -2,7 +2,6 @@ package com.example.gymarena.repository;
 
 import android.util.Log;
 
-import com.example.gymarena.auth.FirebaseConexion;
 import com.example.gymarena.model.Ejercicio;
 import com.google.firebase.firestore.FirebaseFirestore;
 

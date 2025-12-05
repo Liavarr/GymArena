@@ -37,6 +37,7 @@ public class EstadisticaDAO implements DAOInterface<Estadistica>{
                 .addOnSuccessListener(doc -> {
                     if (doc.exists()) {
                         Estadistica estadistica = doc.toObject(Estadistica.class);
+                        estadistica.setIdEstadistica(doc.getId());
                         listener.onSuccess(estadistica);
                     } else {
                         listener.onFailure(new Exception("Estadística no encontrada"));
