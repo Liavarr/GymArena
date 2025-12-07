@@ -25,17 +25,16 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 @RunWith(AndroidJUnit4.class)
 public class EstadisticaRepositoryIntegrationTest {
-
+    SessionManager sessionManager;
     private EstadisticaRepository repository;
     private EstadisticaDAO estadisticaDAO;
-    SessionManager sessionManager;
 
     private Usuario usuario;
     private Usuario amigo;
     private Ejercicio ejercicio;
 
     @Before
-    public void setUp() {
+    public void setUp() throws InterruptedException {
         sessionManager = SessionManager.getInstancia();
         CountDownLatch latchLogin = new CountDownLatch(1);
         sessionManager.login("test@gmail.com", "test123", new SessionManager.LoginCallback() {
@@ -48,6 +47,7 @@ public class EstadisticaRepositoryIntegrationTest {
                 latchLogin.countDown(); // indica que login ha terminado
             }
         });
+        latchLogin.await();
         repository = new EstadisticaRepository();
         estadisticaDAO = new EstadisticaDAO(FirebaseFirestore.getInstance());
 

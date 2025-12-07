@@ -25,7 +25,7 @@ public class UsuarioRepositoryIntegrationTest {
     private Usuario currentUser;
 
     @Before
-    public void setUp() {
+    public void setUp() throws InterruptedException {
         sessionManager = SessionManager.getInstancia();
         CountDownLatch latchLogin = new CountDownLatch(1);
         sessionManager.login("test@gmail.com", "test123", new SessionManager.LoginCallback() {
@@ -38,6 +38,7 @@ public class UsuarioRepositoryIntegrationTest {
                 latchLogin.countDown(); // indica que login ha terminado
             }
         });
+        latchLogin.await();
         usuarioDAO = new UsuarioDAO(FirebaseFirestore.getInstance());
         usuarioRepository = new UsuarioRepository();
 

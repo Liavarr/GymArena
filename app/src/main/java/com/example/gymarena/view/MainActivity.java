@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity {
     protected void afterLayoutLoaded() {
         notificaciones = findViewById(R.id.textoNotificaciones);
         rutinas = findViewById(R.id.textoRutinas);
-        System.out.println("Usuario actual:"+ session.getmAuth().getCurrentUser().getUid());
+        //System.out.println("Usuario actual:"+ session.getmAuth().getCurrentUser().getUid());
     }
 
     private void testCrearUsuario(FirebaseFirestore db){

@@ -31,7 +31,7 @@ public class BaseActivity extends AppCompatActivity {
     }
     protected void validarLogin(SessionManager sesion, int layoutId) {
 
-        sesion.login("xxxx", "xxxx", new SessionManager.LoginCallback() {
+        sesion.login("xxx@gmail.com", "xxxx", new SessionManager.LoginCallback() {
             @Override
             public void onLoginSuccess(FirebaseUser user) {
                 cargarVista(layoutId);
@@ -52,9 +52,4 @@ public class BaseActivity extends AppCompatActivity {
         System.out.println("Vista cargada");
     }
 
-    protected void validarSession(){
-        SessionManager session = SessionManager.getInstancia();
-
-
-    }
 }

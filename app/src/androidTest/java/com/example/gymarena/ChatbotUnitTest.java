@@ -22,7 +22,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 @RunWith(AndroidJUnit4.class)
 public class ChatbotUnitTest {
-
     private Chatbot chatbot;
     private Usuario testUser;
     private ArrayList<Ejercicio> ejerciciosReferencia;

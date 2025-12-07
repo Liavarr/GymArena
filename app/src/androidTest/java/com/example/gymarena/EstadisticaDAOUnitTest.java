@@ -26,16 +26,16 @@ import java.util.concurrent.CountDownLatch;
 
 @RunWith(AndroidJUnit4.class)
 public class EstadisticaDAOUnitTest {
+    SessionManager sessionManager;
     private FirebaseFirestore db;
     private EstadisticaDAO estadisticaDAO;
-    SessionManager sessionManager;
     private String idEstadisticaActualizarObtener = "s5VfxphBQ8y0fO6QgON2";
     private String idUsuarioActualizarObtener = "7a9VEH2UnH29AS2zdmCe";
     private String idEjercicioActualizarObtener = "N97x8Cizrr7f4E6nUacp";
     private String idEstadisticaBorrar = "zSQfSyXgU6fydfd7vz5c";
 
     @Before
-    public void setUp() {
+    public void setUp() throws InterruptedException {
         sessionManager = SessionManager.getInstancia();
         CountDownLatch latchLogin = new CountDownLatch(1);
         sessionManager.login("test@gmail.com", "test123", new SessionManager.LoginCallback() {
@@ -48,6 +48,7 @@ public class EstadisticaDAOUnitTest {
                 latchLogin.countDown(); // indica que login ha terminado
             }
         });
+        latchLogin.await();
         db = FirebaseFirestore.getInstance();
         estadisticaDAO = new EstadisticaDAO(db);
     }

@@ -25,15 +25,14 @@ import java.util.concurrent.CountDownLatch;
 
 @RunWith(AndroidJUnit4.class)
 public class RutinaDAOUnitTest {
-
+    SessionManager sessionManager;
     private FirebaseFirestore db;
     private RutinaDAO rutinaDAO;
-    SessionManager sessionManager;
     private String idRutinaActualizarObtener = "zIwgArlYrfmWWtsWNV7e";
     private String idRutinaEliminar= "N97x8Cizrr7f4E6nUacp";
 
     @Before
-    public void setUp() {
+    public void setUp() throws InterruptedException {
         sessionManager = SessionManager.getInstancia();
         CountDownLatch latchLogin = new CountDownLatch(1);
         sessionManager.login("test@gmail.com", "test123", new SessionManager.LoginCallback() {
@@ -46,6 +45,7 @@ public class RutinaDAOUnitTest {
                 latchLogin.countDown(); // indica que login ha terminado
             }
         });
+        latchLogin.await();
         db = FirebaseFirestore.getInstance();
         rutinaDAO = new RutinaDAO(db);
     }

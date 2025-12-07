@@ -31,7 +31,7 @@ public class Chatbot {
     private final Executor executor;
 
     private Chatbot() {
-        GenerativeModel ai = FirebaseAI.getInstance( /* bypass de import */ )
+        GenerativeModel ai = FirebaseAI.getInstance(  )
                 .generativeModel("gemini-2.5-flash");
         this.model = GenerativeModelFutures.from(ai);
         this.executor = Executors.newSingleThreadExecutor();

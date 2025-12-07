@@ -33,7 +33,7 @@ public class EjercicioDAOUnitTest {
     private String idEjercicioEliminar= "N97x8Cizrr7f4E6nUacp";
 
     @Before
-    public void setUp() {
+    public void setUp() throws InterruptedException {
         sessionManager = SessionManager.getInstancia();
         CountDownLatch latchLogin = new CountDownLatch(1);
         sessionManager.login("test@gmail.com", "test123", new SessionManager.LoginCallback() {
@@ -46,6 +46,7 @@ public class EjercicioDAOUnitTest {
                 latchLogin.countDown(); // indica que login ha terminado
             }
         });
+        latchLogin.await();
         db = FirebaseFirestore.getInstance();
         ejercicioDAO = new EjercicioDAO(db);
     }
